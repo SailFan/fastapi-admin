@@ -51,6 +51,7 @@ function getMenuItem(route, basePath = '') {
     path: resolvePath(basePath, route.path),
     icon: getIcon(route.meta),
     order: route.meta?.order || 0,
+    redirect: route.redirect, // 保留 redirect 信息
   }
 
   const visibleChildren = route.children
@@ -59,32 +60,13 @@ function getMenuItem(route, basePath = '') {
 
   if (!visibleChildren.length) return menuItem
 
-  if (visibleChildren.length === 1) {
-    // 单个子路由处理
-    const singleRoute = visibleChildren[0]
-    menuItem = {
-      ...menuItem,
-      label: singleRoute.meta?.title || singleRoute.name,
-      key: singleRoute.name,
-      path: resolvePath(menuItem.path, singleRoute.path),
-      icon: getIcon(singleRoute.meta),
-    }
-    const visibleItems = singleRoute.children
-      ? singleRoute.children.filter((item) => item.name && !item.isHidden)
-      : []
+  // 始终显示一级菜单，不再进行扁平化处理
+  // 如果有多个子菜单，正常显示层级结构
+  // 如果只有一个子菜单，也保持一级菜单显示，子菜单作为子项
+  menuItem.children = visibleChildren
+    .map((item) => getMenuItem(item, menuItem.path))
+    .sort((a, b) => a.order - b.order)
 
-    if (visibleItems.length === 1) {
-      menuItem = getMenuItem(visibleItems[0], menuItem.path)
-    } else if (visibleItems.length > 1) {
-      menuItem.children = visibleItems
-        .map((item) => getMenuItem(item, menuItem.path))
-        .sort((a, b) => a.order - b.order)
-    }
-  } else {
-    menuItem.children = visibleChildren
-      .map((item) => getMenuItem(item, menuItem.path))
-      .sort((a, b) => a.order - b.order)
-  }
   return menuItem
 }
 
@@ -98,10 +80,13 @@ function handleMenuSelect(key, item) {
   if (isExternal(item.path)) {
     window.open(item.path)
   } else {
-    if (item.path === curRoute.path) {
+    // 如果菜单项有 redirect 且有子菜单，点击时跳转到 redirect 路径
+    const targetPath = item.redirect && item.children && item.children.length > 0 ? item.redirect : item.path
+    
+    if (targetPath === curRoute.path) {
       appStore.reloadPage()
     } else {
-      router.push(item.path)
+      router.push(targetPath)
     }
   }
 }
