@@ -44,16 +44,16 @@ class Settings(BaseSettings):
             # },
             # PostgreSQL configuration
             # Install with: tortoise-orm[asyncpg]
-            # "postgres": {
-            #     "engine": "tortoise.backends.asyncpg",
-            #     "credentials": {
-            #         "host": "localhost",  # Database host address
-            #         "port": 5432,  # Database port
-            #         "user": "yourusername",  # Database username
-            #         "password": "yourpassword",  # Database password
-            #         "database": "yourdatabase",  # Database name
-            #     },
-            # },
+            "postgres": {
+                "engine": "tortoise.backends.asyncpg",
+                "credentials": {
+                    "host": "localhost",  # Database host address
+                    "port": 5432,  # Database port
+                    "user": "admin",  # Database username
+                    "password": "123456",  # Database password
+                    "database": "fastapi_admin",  # Database name
+                },
+            },
             # MSSQL/Oracle configuration
             # Install with: tortoise-orm[asyncodbc]
             # "oracle": {
@@ -82,7 +82,7 @@ class Settings(BaseSettings):
         "apps": {
             "models": {
                 "models": ["app.models", "aerich.models"],
-                "default_connection": "sqlite",
+                "default_connection": "postgres",
             },
         },
         "use_tz": False,  # Whether to use timezone-aware datetimes
