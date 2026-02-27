@@ -59,11 +59,8 @@ function getMenuItem(route, basePath = '') {
     ? route.children.filter((item) => item.name && !item.isHidden)
     : []
 
-  if (!visibleChildren.length) return menuItem
+  if (!visibleChildren.length || route.meta?.hideChildrenInMenu) return menuItem
 
-  // 始终显示一级菜单，不再进行扁平化处理
-  // 如果有多个子菜单，正常显示层级结构
-  // 如果只有一个子菜单，也保持一级菜单显示，子菜单作为子项
   menuItem.children = visibleChildren
     .map((item) => getMenuItem(item, menuItem.path))
     .sort((a, b) => a.order - b.order)

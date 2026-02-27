@@ -55,7 +55,12 @@
       "model_transaction_data": "Transaction Data",
       "model_transaction_data_desc": "Mock transaction logs and streams.",
       "model_custom_model": "Custom Model",
-      "model_custom_model_desc": "Define your own schema."
+      "model_custom_model_desc": "Define your own schema.",
+      "activity_log": "Activity Log",
+      "log_task_completed": "Order Data Batch finished successfully.",
+      "log_task_running": "User Dataset generation is running.",
+      "log_task_failed": "Product Test Set failed. Please check the configuration.",
+      "log_model_published": "Transaction Model v2.1 has been published."
     },
     "profile": {
       "label_profile": "Profile",

@@ -13,6 +13,7 @@ export const basicRoutes = [
     name: t('views.workbench.label_workbench'),
     path: '/workbench',
     component: Layout,
+    isHidden: true,
     children: [
       {
         path: '',
@@ -25,7 +26,7 @@ export const basicRoutes = [
         },
       },
     ],
-    meta: { order: 1 },
+    meta: { order: 1, hideChildrenInMenu: true },
   },
   {
     name: t('views.profile.label_profile'),

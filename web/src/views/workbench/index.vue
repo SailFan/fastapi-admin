@@ -127,6 +127,16 @@
           </n-grid-item>
         </n-grid>
       </n-card>
+
+      <n-card :title="t('views.workbench.activity_log')" mt-15 rounded-10>
+        <ul class="activity-log">
+          <li v-for="item in activityLogs" :key="item.time + item.message">
+            <span class="time">{{ item.time }}</span>
+            <span class="type" :data-type="item.type"></span>
+            <span class="message">{{ item.message }}</span>
+          </li>
+        </ul>
+      </n-card>
     </div>
   </AppPage>
 </template>
@@ -321,4 +331,72 @@ const quickModels = computed(() => [
 function handleQuickGenerate(item) {
   console.log('[workbench] quick generate:', item)
 }
+
+const activityLogs = computed(() => [
+  {
+    time: '10:45',
+    type: 'success',
+    message: t('views.workbench.log_task_completed'),
+  },
+  {
+    time: '10:18',
+    type: 'info',
+    message: t('views.workbench.log_task_running'),
+  },
+  {
+    time: '09:52',
+    type: 'error',
+    message: t('views.workbench.log_task_failed'),
+  },
+  {
+    time: '09:30',
+    type: 'info',
+    message: t('views.workbench.log_model_published'),
+  },
+])
 </script>
+
+<style scoped>
+.activity-log {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.activity-log li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  padding: 6px 0;
+}
+
+.activity-log .time {
+  color: rgba(0, 0, 0, 0.4);
+  font-variant-numeric: tabular-nums;
+  width: 52px;
+}
+
+.activity-log .type {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #d0d4e4;
+}
+
+.activity-log .type[data-type='success'] {
+  background-color: #24a148;
+}
+
+.activity-log .type[data-type='info'] {
+  background-color: #3574f0;
+}
+
+.activity-log .type[data-type='error'] {
+  background-color: #e53935;
+}
+
+.activity-log .message {
+  color: rgba(0, 0, 0, 0.82);
+}
+</style>
