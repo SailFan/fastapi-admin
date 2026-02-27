@@ -4,8 +4,9 @@
     class="side-menu"
     accordion
     :indent="18"
-    :collapsed-icon-size="22"
-    :collapsed-width="64"
+    :collapsed-icon-size="20"
+    :collapsed-width="60"
+    :bordered="false"
     :options="menuOptions"
     :value="activeKey"
     @update:value="handleMenuSelect"
@@ -93,18 +94,7 @@ function handleMenuSelect(key, item) {
 </script>
 
 <style lang="scss">
-.side-menu:not(.n-menu--collapsed) {
-  .n-menu-item-content {
-    &::before {
-      left: 5px;
-      right: 5px;
-    }
-    &.n-menu-item-content--selected,
-    &:hover {
-      &::before {
-        border-left: 4px solid var(--primary-color);
-      }
-    }
-  }
+.side-menu {
+  // 使用 Naive UI 默认样式，整体更简洁
 }
 </style>

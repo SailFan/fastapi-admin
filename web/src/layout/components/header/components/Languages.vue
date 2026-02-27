@@ -10,15 +10,16 @@
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from '@/store'
 import { router } from '~/src/router'
+import i18n from '~/i18n'
 
 const store = useAppStore()
-const { availableLocales, t } = useI18n()
+const { availableLocales } = useI18n()
 
 const options = computed(() => {
   let select = []
   availableLocales.forEach((locale) => {
     select.push({
-      label: t('lang', 1, { locale: locale }),
+      label: i18n.global.getLocaleMessage(locale)?.lang || locale,
       key: locale,
     })
   })
