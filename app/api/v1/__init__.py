@@ -6,6 +6,8 @@ from .apis import apis_router
 from .auditlog import auditlog_router
 from .base import base_router
 from .depts import depts_router
+from .entity_set import entity_set_router
+from .field_def import field_def_router
 from .menus import menus_router
 from .roles import roles_router
 from .users import users_router
@@ -19,3 +21,5 @@ v1_router.include_router(menus_router, prefix="/menu", dependencies=[DependPermi
 v1_router.include_router(apis_router, prefix="/api", dependencies=[DependPermission])
 v1_router.include_router(depts_router, prefix="/dept", dependencies=[DependPermission])
 v1_router.include_router(auditlog_router, prefix="/auditlog", dependencies=[DependPermission])
+v1_router.include_router(entity_set_router, prefix="/entity_set", dependencies=[DependPermission])
+v1_router.include_router(field_def_router, prefix="/field_def", dependencies=[DependPermission])
