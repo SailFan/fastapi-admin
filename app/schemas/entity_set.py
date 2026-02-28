@@ -15,6 +15,13 @@ class BaseEntitySet(BaseModel):
     description: Optional[str] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
+    model_config = {
+        "json_encoders": {
+            UUID: lambda v: str(v),
+            datetime: lambda v: v.isoformat() if v else None,
+        }
+    }
+
 
 
 class EntitySetCreate(BaseModel):

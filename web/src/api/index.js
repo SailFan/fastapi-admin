@@ -39,4 +39,16 @@ export default {
   deleteDept: (params = {}) => request.delete('/dept/delete', { params }),
   // auditlog
   getAuditLogList: (params = {}) => request.get('/auditlog/list', { params }),
+  // entity_set (模型管理)
+  getEntityList: (params = {}) => request.get('/entity_set/list', { params }),
+  getEntityById: (params = {}) => request.get('/entity_set/get', { params }),
+  createEntity: (data = {}) => request.post('/entity_set/create', data),
+  updateEntity: (data = {}) => request.post('/entity_set/update', data),
+  deleteEntity: (params = {}) => request.delete('/entity_set/delete', { params }),
+  // field_def (字段定义)
+  getFieldList: (params = {}) => request.get('/field_def/list', { params }),
+  getFieldsByEntity: (params = {}) => request.get('/field_def/by_entity', { params }),
+  createField: (data = {}) => request.post('/field_def/create', data),
+  updateField: (data = {}) => request.post('/field_def/update', data),
+  deleteField: (params = {}) => request.delete('/field_def/delete', { params }),
 }

@@ -15,8 +15,12 @@ defineProps({
     default: undefined,
   },
 })
+
+// 全局禁用图标显示
+const showIcon = false
 </script>
 
 <template>
-  <component :is="renderIcon(icon, { size, color })" />
+  <!-- 全局禁用图标，不渲染任何内容 -->
+  <component v-if="showIcon" :is="renderIcon(icon, { size, color })" />
 </template>

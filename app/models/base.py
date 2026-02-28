@@ -1,5 +1,6 @@
 import asyncio
 from datetime import datetime
+from uuid import UUID
 
 from tortoise import fields, models
 
@@ -19,6 +20,8 @@ class BaseModel(models.Model):
                 value = getattr(self, field)
                 if isinstance(value, datetime):
                     value = value.strftime(settings.DATETIME_FORMAT)
+                elif isinstance(value, UUID):
+                    value = str(value)
                 d[field] = value
 
         if m2m:
@@ -43,6 +46,8 @@ class BaseModel(models.Model):
                 if k not in exclude_fields:
                     if isinstance(v, datetime):
                         formatted_value[k] = v.strftime(settings.DATETIME_FORMAT)
+                    elif isinstance(v, UUID):
+                        formatted_value[k] = str(v)
                     else:
                         formatted_value[k] = v
             formatted_values.append(formatted_value)

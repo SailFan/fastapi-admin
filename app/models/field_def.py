@@ -1,4 +1,5 @@
 from tortoise import fields
+from uuid import uuid4
 
 from .base import BaseModel, TimestampMixin
 
@@ -6,7 +7,7 @@ from .base import BaseModel, TimestampMixin
 class FieldDef(BaseModel, TimestampMixin):
     """字段定义模型"""
     
-    uuid = fields.UUIDField(unique=True, pk=False, index=True, description="字段唯一标识")
+    uuid = fields.UUIDField(unique=True, pk=False, index=True, description="字段唯一标识", default=uuid4)
     entity_id = fields.BigIntField(description="对应实体ID", index=True)
     name = fields.CharField(max_length=100, description="字段名称", index=True)
     type = fields.CharField(max_length=20, description="字段类型：string/int/float/date/enum/json", index=True)

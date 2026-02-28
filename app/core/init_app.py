@@ -12,6 +12,7 @@ from app.controllers.user import UserCreate, user_controller
 from app.core.exceptions import (
     DoesNotExist,
     DoesNotExistHandle,
+    GeneralExceptionHandle,
     HTTPException,
     HttpExcHandle,
     IntegrityError,
@@ -58,6 +59,8 @@ def register_exceptions(app: FastAPI):
     app.add_exception_handler(IntegrityError, IntegrityHandle)
     app.add_exception_handler(RequestValidationError, RequestValidationHandle)
     app.add_exception_handler(ResponseValidationError, ResponseValidationHandle)
+    # 捕获所有未处理的异常
+    app.add_exception_handler(Exception, GeneralExceptionHandle)
 
 
 def register_routers(app: FastAPI, prefix: str = "/api"):
