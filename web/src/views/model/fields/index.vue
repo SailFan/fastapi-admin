@@ -66,14 +66,25 @@ onMounted(() => {
 })
 
 // 字段类型选项
-const typeOptions = [
-  { label: 'string - 字符串', value: 'string' },
-  { label: 'int - 整数', value: 'int' },
-  { label: 'float - 浮点数', value: 'float' },
-  { label: 'date - 日期', value: 'date' },
-  { label: 'enum - 枚举', value: 'enum' },
-  { label: 'json - JSON', value: 'json' },
-]
+const typeOptions = ref([])
+
+async function loadMetaData(){
+  try{
+    const res = await api.getMetadata()
+    typeOptions.value = res.data.field_types
+    console.log(typeOptions.value)
+  }catch(err){
+    $message.error('加载字段类型失败：' + err.message)
+  }
+}
+
+const handleaddWithMetaData = async() => {
+  if(!typeOptions.value.length){
+    await loadMetaData()
+  }
+  handleAdd()
+}
+
 
 // 生成模式选项
 const scopeOptions = [
@@ -261,7 +272,7 @@ const validateForm = {
 <template>
   <CommonPage show-footer title="字段定义">
     <template #action>
-      <NButton type="primary" @click="handleAdd">
+      <NButton type="primary" @click="handleaddWithMetaData">
         新建字段
       </NButton>
     </template>
@@ -366,6 +377,22 @@ const validateForm = {
             placeholder="请输入默认值或占位值"
           />
         </NFormItem>
+        <NFormItem label="最小长度" path="min_length">
+          <NInputNumber
+            v-model:value="modalForm.min_length"
+            :min="0"
+            placeholder="字段生成的最小长度"
+            style="width: 100%"
+          />
+        </NFormItem>
+        <NFormItem label="最大长度" path="max_length">
+          <NInputNumber
+            v-model:value="modalForm.max_length"
+            :min="0"
+            placeholder="字段生成的最大长度"
+            style="width: 100%"
+          />
+        </NFormItem>
         <NFormItem label="字段校验" path="validation">
           <NInput
             v-model:value="modalForm.validation"
@@ -382,14 +409,14 @@ const validateForm = {
             placeholder="请输入字段说明"
           />
         </NFormItem>
-        <NFormItem label="字段顺序" path="order">
+        <!-- <NFormItem label="字段顺序" path="order">
           <NInputNumber
             v-model:value="modalForm.order"
             :min="0"
             placeholder="字段显示顺序"
             style="width: 100%"
           />
-        </NFormItem>
+        </NFormItem> -->
       </NForm>
     </CrudModal>
   </CommonPage>

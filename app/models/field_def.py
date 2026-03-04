@@ -13,6 +13,8 @@ class FieldDef(BaseModel, TimestampMixin):
     type = fields.CharField(max_length=20, description="字段类型：string/int/float/date/enum/json", index=True)
     is_required = fields.BooleanField(default=True, description="是否必填")
     default_value = fields.TextField(null=True, description="默认值或占位值")
+    min_length = fields.IntField(null=True, description="最小长度")
+    max_length = fields.IntField(null=True, description="最大长度")
     scope = fields.CharField(max_length=20, default='single', description="生成模式：single/batch/optional")
     dependencies = fields.JSONField(null=True, description="字段依赖关系")
     description = fields.TextField(null=True, description="字段说明")

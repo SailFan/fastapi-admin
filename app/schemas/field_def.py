@@ -14,6 +14,8 @@ class BaseFieldDef(BaseModel):
     type: str
     is_required: bool = True
     default_value: Optional[str] = None
+    min_length: Optional[int] = None
+    max_length: Optional[int] = None
     scope: str = 'single'
     dependencies: Optional[dict] = None
     description: Optional[str] = None
@@ -29,6 +31,8 @@ class FieldDefCreate(BaseModel):
     type: str = Field(..., example="string", description="字段类型：string/int/float/date/enum/json")
     is_required: bool = Field(True, description="是否必填")
     default_value: Optional[str] = Field(None, example="user@example.com", description="默认值或占位值")
+    min_length: Optional[int] = Field(None, example=5, description="最小长度")
+    max_length: Optional[int] = Field(None, example=50, description="最大长度")
     scope: str = Field('single', example="single", description="生成模式：single/batch/optional")
     dependencies: Optional[dict] = Field(None, example={"depends_on": "user_id"}, description="字段依赖关系")
     description: Optional[str] = Field(None, example="用户邮箱地址", description="字段说明")
@@ -46,6 +50,8 @@ class FieldDefUpdate(BaseModel):
     type: Optional[str] = Field(None, example="string", description="字段类型")
     is_required: Optional[bool] = Field(None, description="是否必填")
     default_value: Optional[str] = Field(None, description="默认值或占位值")
+    min_length: Optional[int] = Field(None, description="最小长度")
+    max_length: Optional[int] = Field(None, description="最大长度")
     scope: Optional[str] = Field(None, description="生成模式")
     dependencies: Optional[dict] = Field(None, description="字段依赖关系")
     description: Optional[str] = Field(None, description="字段说明")

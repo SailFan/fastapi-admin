@@ -5,7 +5,7 @@ from .registry  import (FIELD_TYPES,STRATEGIES,DISTRIBUTIONS,CONSTRAINT_TYPES)
 router = APIRouter()
 
 
-@router.get("/metadata", summary="获取元数据")
+@router.get("/getmeta", summary="获取元数据")
 async def get_meta():
     return {
         "field_types": FIELD_TYPES,

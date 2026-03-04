@@ -57,4 +57,5 @@ export default {
   createOrder: (data = {}) => request.post('/order/create', data),
   updateOrder: (data = {}) => request.post('/order/update', data),
   deleteOrder: (params = {}) => request.delete('/order/delete', { params }),
+  getMetadata: () => request.get('/metadata/getmeta'),
 }
