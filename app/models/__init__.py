@@ -4,5 +4,5 @@ from .entity_set import EntitySet
 from .field_def import FieldDef
 
 __all__ = [
-    "User", "Role", "Api", "Menu", "Dept", "DeptClosure", "AuditLog", "EntitySet", "FieldDef"
+    "User", "Role", "Api", "Menu", "Dept", "DeptClosure", "AuditLog", "EntitySet", "FieldDef", "Order"
 ]

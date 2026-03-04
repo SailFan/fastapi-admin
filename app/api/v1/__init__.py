@@ -11,6 +11,8 @@ from .field_def import field_def_router
 from .menus import menus_router
 from .roles import roles_router
 from .users import users_router
+from .meta import meta_router
+
 
 v1_router = APIRouter()
 
@@ -23,3 +25,5 @@ v1_router.include_router(depts_router, prefix="/dept", dependencies=[DependPermi
 v1_router.include_router(auditlog_router, prefix="/auditlog", dependencies=[DependPermission])
 v1_router.include_router(entity_set_router, prefix="/entity_set", dependencies=[DependPermission])
 v1_router.include_router(field_def_router, prefix="/field_def", dependencies=[DependPermission])
+v1_router.include_router(meta_router, prefix="/metadata", dependencies=[DependPermission])
+

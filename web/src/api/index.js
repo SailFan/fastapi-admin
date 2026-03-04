@@ -51,4 +51,10 @@ export default {
   createField: (data = {}) => request.post('/field_def/create', data),
   updateField: (data = {}) => request.post('/field_def/update', data),
   deleteField: (params = {}) => request.delete('/field_def/delete', { params }),
+  // order (订单管理)
+  getOrderList: (params = {}) => request.get('/order/list', { params }),
+  getOrderById: (params = {}) => request.get('/order/get', { params }),
+  createOrder: (data = {}) => request.post('/order/create', data),
+  updateOrder: (data = {}) => request.post('/order/update', data),
+  deleteOrder: (params = {}) => request.delete('/order/delete', { params }),
 }
